@@ -134,13 +134,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         tapped(index);
                       }
                     },
-                    child: DecoratedBox(
+                    child: AnimatedContainer(
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey),
                         color: symbolsOnMap[index] == ''
                             ? Colors.white
                             : (symbolsOnMap[index] == 'X' ? Colors.lightBlue : Colors.greenAccent),
                       ),
+                      duration: const Duration(seconds: 1),
                       child: Center(
                         child: Text(
                           symbolsOnMap[index],
