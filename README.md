@@ -2,15 +2,13 @@
 
 Tic-Tac-Toe game in Flutter.
 
-## Getting Started
+## Some screenshots from the app
 
-This project is a starting point for a Flutter application.
+#### Empty board
+![Empty Board](resources/empty_board.png)
 
-A few resources to get you started if this is your first Flutter project:
+#### Player X won
+![Player X Won](resources/player_x_won.png)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#### Player O won
+![Player O Won](resources/player_o_won.png)

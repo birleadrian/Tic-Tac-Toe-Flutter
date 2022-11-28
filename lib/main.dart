@@ -30,20 +30,20 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String currentSymbol = 'X';
-  List<String> symbolsOnMap = new List.filled(9, '');
+  List<String> symbolsOnMap = List<String>.filled(9, '');
   bool isGameFinished = false;
   String wonMessage = '';
 
   void restart() {
     setState(() {
       currentSymbol = 'X';
-      symbolsOnMap = new List.filled(9, '');
+      symbolsOnMap = List<String>.filled(9, '');
       isGameFinished = false;
       wonMessage = '';
     });
   }
 
-  bool checkIfEmpty(index) {
+  bool checkIfEmpty(int index) {
     return symbolsOnMap[index] == '';
   }
 
@@ -55,7 +55,6 @@ class _MyHomePageState extends State<MyHomePage> {
         if (symbolsOnMap[i + j] == symbolsOnMap[i + j + 1] &&
             symbolsOnMap[i + j] == symbolsOnMap[i + j + 2] &&
             !checkIfEmpty(i + j)) {
-          print('intra');
           isGameFinished = true;
           wonMessage = 'Player $currentSymbol won!';
           return;
@@ -66,7 +65,6 @@ class _MyHomePageState extends State<MyHomePage> {
       // Validation for columns
       for (int i = 0; i < 3; i++) {
         if (symbolsOnMap[i] == symbolsOnMap[i + 3] && symbolsOnMap[i] == symbolsOnMap[i + 6] && !checkIfEmpty(i)) {
-          print(2);
           isGameFinished = true;
           wonMessage = 'Player $currentSymbol won!';
           return;
@@ -79,7 +77,6 @@ class _MyHomePageState extends State<MyHomePage> {
           !checkIfEmpty(0) &&
           !checkIfEmpty(4) &&
           !checkIfEmpty(8)) {
-        print(3);
         isGameFinished = true;
         wonMessage = 'Player $currentSymbol won!';
         return;
@@ -90,7 +87,6 @@ class _MyHomePageState extends State<MyHomePage> {
           !checkIfEmpty(2) &&
           !checkIfEmpty(4) &&
           !checkIfEmpty(6)) {
-        print(4);
         isGameFinished = true;
         wonMessage = 'Player $currentSymbol won!';
         return;
@@ -98,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void tapped(index) {
+  void tapped(int index) {
     setState(() {
       if (symbolsOnMap[index] != '') {
         return;
@@ -127,33 +123,37 @@ class _MyHomePageState extends State<MyHomePage> {
             Expanded(
               flex: 3,
               child: GridView.builder(
-                  itemCount: 9,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                  ),
-                  itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                      onTap: () {
-                        isGameFinished ? print('Game is finished') : tapped(index);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            color: symbolsOnMap[index] == ''
-                                ? Colors.white
-                                : (symbolsOnMap[index] == 'X' ? Colors.lightBlue : Colors.greenAccent)),
-                        child: Center(
-                          child: Text(
-                            symbolsOnMap[index],
-                            style: TextStyle(
-                              fontSize: 40,
-                              color: symbolsOnMap[index] == 'X' ? Colors.yellow : Colors.deepOrangeAccent,
-                            ),
+                itemCount: 9,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    onTap: () {
+                      if (!isGameFinished) {
+                        tapped(index);
+                      }
+                    },
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        color: symbolsOnMap[index] == ''
+                            ? Colors.white
+                            : (symbolsOnMap[index] == 'X' ? Colors.lightBlue : Colors.greenAccent),
+                      ),
+                      child: Center(
+                        child: Text(
+                          symbolsOnMap[index],
+                          style: TextStyle(
+                            fontSize: 40,
+                            color: symbolsOnMap[index] == 'X' ? Colors.yellow : Colors.deepOrangeAccent,
                           ),
                         ),
                       ),
-                    );
-                  }),
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         ),
